@@ -8,11 +8,8 @@ public class AjaxResponse {
     private int code;
     private String message;
     private Object data;
-
     private AjaxResponse(){
-
     }
-
     public static AjaxResponse success(){
         AjaxResponse resultBean = new AjaxResponse();
         resultBean.setIsok(true);
