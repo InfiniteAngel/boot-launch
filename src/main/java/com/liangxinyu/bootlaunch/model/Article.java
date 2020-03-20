@@ -16,7 +16,7 @@ import java.util.List;
 public class Article {
     @JsonIgnore
     private Long id;
-    @JsonProperty("auther")
+    //@JsonProperty("auther")
     private String author;
     private String title;
     @JsonInclude(JsonInclude.Include.NON_NULL)

@@ -2,8 +2,11 @@ package com.liangxinyu.bootlaunch.controller;
 
 import com.liangxinyu.bootlaunch.model.AjaxResponse;
 import com.liangxinyu.bootlaunch.model.Article;
+import com.liangxinyu.bootlaunch.service.ArticleTestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
@@ -12,12 +15,15 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RequestMapping("/rest")
 public class ArticleRestController {
     //@RequestMapping(value = "/article",method = POST,produces = "applicatioin/json")
+    @Resource
+    ArticleTestService articleTestService;
     @PostMapping("/article")
     public AjaxResponse saveArticle(@RequestBody  Article article){
         /*接受表单提交，可用@RequestParam*/
         //public AjaxResponse  saveArticle(@RequestParam Long id,
 
         log.info("saveArticle:{}",article);
+        log.info("arrticleRestService return:"+articleTestService.saveArticle(article));
         return AjaxResponse.success(article);
     }
     //@RequestMapping(value = "/article/{id}",method = DELETE,produces = "applicatioin/json")
