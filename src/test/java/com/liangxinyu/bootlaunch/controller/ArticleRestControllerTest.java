@@ -29,8 +29,8 @@ public class ArticleRestControllerTest {
                              "\"author\":\"liangxinyu\",\n"+
                             "\"title\":\"Spring Boot\",\n"+
                             "\"content\":\"c\",\n"+
-                            "\"createTime\":\"2017-07-16 05:23:34\",\n"+
-                "\"reader\":[{\"name\":\"liangxinyu\",\"age\":18},{\"name\":\"kobe\",\"age\":37}]\n"+
+                            "\"createTime\":\"2017-07-16 05:23:34\"\n"+
+               // "\"reader\":[{\"name\":\"liangxinyu\",\"age\":18},{\"name\":\"kobe\",\"age\":37}]\n"+
                 "}";
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.request(HttpMethod.POST,"/rest/article")
                 .contentType("application/json").content(article))

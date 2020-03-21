@@ -40,14 +40,14 @@ public class ArticleRestControllerTest1 {
                              "\"author\":\"liangxinyu\",\n"+
                             "\"title\":\"Spring Boot\",\n"+
                             "\"content\":\"c\",\n"+
-                            "\"createTime\":\"2017-07-16 05:23:34\",\n"+
-                "\"reader\":[{\"name\":\"liangxinyu\",\"age\":18},{\"name\":\"kobe\",\"age\":37}]\n"+
+                            "\"createTime\":\"2017-07-16 05:23:34\"\n"+
+                //"\"reader\":[{\"name\":\"liangxinyu\",\"age\":18},{\"name\":\"kobe\",\"age\":37}]\n"+
                 "}";
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.request(HttpMethod.POST,"/rest/article")
                 .contentType("application/json").content(article))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.author").value("liangxinyu"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data.reader[0].age").value(18))
+               // .andExpect(MockMvcResultMatchers.jsonPath("$.data.reader[0].age").value(18))
                 .andDo(print())
                 .andReturn();
         log.info(result.getResponse().getContentAsString());

@@ -2,9 +2,11 @@ package com.liangxinyu.bootlaunch.controller;
 
 import com.liangxinyu.bootlaunch.model.AjaxResponse;
 import com.liangxinyu.bootlaunch.model.Article;
+import com.liangxinyu.bootlaunch.service.ArticleRestService;
 import com.liangxinyu.bootlaunch.service.ArticleTestService;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -14,10 +16,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @Slf4j
 @RestController
 @RequestMapping("/rest")
+@Controller
 public class ArticleRestController {
     //@RequestMapping(value = "/article",method = POST,produces = "applicatioin/json")
     @Resource
     ArticleTestService articleTestService;
+    @Resource
+    ArticleRestService articleRestService;
 
     @ApiOperation(value = "添加文章", notes = "添加新的文章", tags = "Article",httpMethod = "POST")
     @ApiImplicitParams({
@@ -32,10 +37,10 @@ public class ArticleRestController {
     public AjaxResponse saveArticle(@RequestBody  Article article){
         /*接受表单提交，可用@RequestParam*/
         //public AjaxResponse  saveArticle(@RequestParam Long id,
-
-        log.info("saveArticle:{}",article);
-        log.info("arrticleRestService return:"+articleTestService.saveArticle(article));
-        return AjaxResponse.success(article);
+        Article article1=articleRestService.saveArticle(article);
+        log.info("saveArticle:{}",article1);
+        log.info("arrticleRestService return:"+article1);
+        return AjaxResponse.success(article1);
     }
     //@RequestMapping(value = "/article/{id}",method = DELETE,produces = "applicatioin/json")
     @DeleteMapping("/article/{id}")
