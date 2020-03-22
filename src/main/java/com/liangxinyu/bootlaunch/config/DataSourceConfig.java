@@ -1,8 +1,9 @@
 package com.liangxinyu.bootlaunch.config;
 
+import com.atomikos.jdbc.AtomikosDataSourceBean;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -12,28 +13,32 @@ import javax.sql.DataSource;
 
 @Configuration
 public class DataSourceConfig {
+    //JTA实现分布式事务数据源
+    @Bean(initMethod = "init",destroyMethod = "close",name="primaryDataSource")
     @Primary
-    @Bean(name="uatDataSource")
-    @Qualifier("uatDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.uat")
-    public DataSource uatDataSource(){
-        return DataSourceBuilder.create().build();
+    @ConfigurationProperties(prefix = "primarydb")
+    public DataSource primaryDataSourceBean(){
+        //返回的是AtomikosDataSourceBean,所有的配置属性也都是注入这个类里面
+        return new AtomikosDataSourceBean();
     }
-    @Bean(name="sitDataSource")
-    @Qualifier("sitDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.sit")
-    public DataSource sitDataSource(){
-        return DataSourceBuilder.create().build();
-    }
-    @Bean(name="uatJdbcTemplate")
-    public JdbcTemplate uatJdbcTemplate(
-            @Qualifier("uatDataSource") DataSource dataSource){
-        return new JdbcTemplate(dataSource);
-    }
-    @Bean(name="sitJdbcTemplate")
-    public JdbcTemplate sitJdbcTemplate(
-            @Qualifier("sitDataSource") DataSource dataSource){
-        return new JdbcTemplate(dataSource);
+    //jta数据源secondarydb
+    @Bean(initMethod="init", destroyMethod="close", name="secondaryDataSource")
+    @ConfigurationProperties(prefix = "secondarydb")
+    public DataSource secondaryDataSource()  {
+        return new AtomikosDataSourceBean();
     }
 
+    //primaryJdbcTemplate使用primaryDataSource数据源
+    @Bean
+    public JdbcTemplate primaryJdbcTemplate(
+            @Qualifier("primaryDataSource") DataSource primaryDataSource) {
+        return new JdbcTemplate(primaryDataSource);
+    }
+
+    //secondaryJdbcTemplate使用secondaryDataSource数据源
+    @Bean
+    public JdbcTemplate secondaryJdbcTemplate(
+            @Qualifier("secondaryDataSource") DataSource secondaryDataSource) {
+        return new JdbcTemplate(secondaryDataSource);
+    }
 }

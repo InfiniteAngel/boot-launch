@@ -11,12 +11,12 @@ import java.util.List;
 @Repository
 public class ArticleJDBCDAO {
     @Resource
-    private JdbcTemplate uatJdbcTemplate;
+    private JdbcTemplate primaryJdbcTemplate;
 
     //保存文章
     public void  save(Article article,JdbcTemplate jdbcTemplate){
         if(jdbcTemplate == null){
-            jdbcTemplate=uatJdbcTemplate;
+            jdbcTemplate=primaryJdbcTemplate;
         }
 
         jdbcTemplate.update("insert into article(author, title, content, create_time) values(?,?,?,?)",
@@ -28,14 +28,14 @@ public class ArticleJDBCDAO {
     //删除文章
     public void deleteById(Long id,JdbcTemplate jdbcTemplate){
         if(jdbcTemplate == null){
-            jdbcTemplate=uatJdbcTemplate;
+            jdbcTemplate=primaryJdbcTemplate;
         }
         jdbcTemplate.update("delete from article where id=?",new Object[]{id});
     }
     //更新文章
     public void updateById(Article article,JdbcTemplate jdbcTemplate){
         if(jdbcTemplate == null){
-            jdbcTemplate=uatJdbcTemplate;
+            jdbcTemplate=primaryJdbcTemplate;
         }
         jdbcTemplate.update("update article set author=?,title=?,content=?,create_time=? where id=?",
                 article.getAuthor(),
@@ -47,7 +47,7 @@ public class ArticleJDBCDAO {
     //根据id查找文章
     public Article findById(Long  id,JdbcTemplate jdbcTemplate){
         if(jdbcTemplate == null){
-            jdbcTemplate=uatJdbcTemplate;
+            jdbcTemplate=primaryJdbcTemplate;
         }
         return (Article)jdbcTemplate.queryForObject("SELECT * FROM article WHERE id=?",
                 new Object[]{id},new BeanPropertyRowMapper<>(Article.class));
@@ -55,13 +55,13 @@ public class ArticleJDBCDAO {
     //查询所有
     public List<Article> findAll(JdbcTemplate jdbcTemplate){
         if(jdbcTemplate == null){
-            jdbcTemplate=uatJdbcTemplate;
+            jdbcTemplate=primaryJdbcTemplate;
         }
             return (List<Article>)jdbcTemplate.query("select * from article",new BeanPropertyRowMapper(Article.class));
     }
     //保存文章
     public void  save(Article article){
-        uatJdbcTemplate.update("insert into article(author, title, content, create_time) values(?,?,?,?)",
+        primaryJdbcTemplate.update("insert into article(author, title, content, create_time) values(?,?,?,?)",
                 article.getAuthor(),
                 article.getTitle(),
                 article.getContent(),
@@ -70,11 +70,11 @@ public class ArticleJDBCDAO {
     //删除文章
     public void deleteById(Long id){
 
-       uatJdbcTemplate.update("delete from article where id=?",new Object[]{id});
+        primaryJdbcTemplate.update("delete from article where id=?",new Object[]{id});
     }
     //更新文章
     public void updateById(Article article){
-        uatJdbcTemplate.update("update article set author=?,title=?,content=?,create_time=? where id=?",
+        primaryJdbcTemplate.update("update article set author=?,title=?,content=?,create_time=? where id=?",
                 article.getAuthor(),
                 article.getTitle(),
                 article.getContent(),
@@ -83,12 +83,12 @@ public class ArticleJDBCDAO {
     }
     //根据id查找文章
     public Article findById(Long  id){
-        return (Article)uatJdbcTemplate.queryForObject("SELECT * FROM article WHERE id=?",
+        return (Article)primaryJdbcTemplate.queryForObject("SELECT * FROM article WHERE id=?",
                 new Object[]{id},new BeanPropertyRowMapper<>(Article.class));
     }
     //查询所有
     public List<Article> findAll(){
 
-        return (List<Article>)uatJdbcTemplate.query("select * from article",new BeanPropertyRowMapper(Article.class));
+        return (List<Article>)primaryJdbcTemplate.query("select * from article",new BeanPropertyRowMapper(Article.class));
     }
 }
