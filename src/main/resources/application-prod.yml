@@ -3,29 +3,19 @@ spring:
     date-format:yyyy-MM-dd HH:mm:ss
     time-zone:GMT+8
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/testdb?useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: root
-    password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    uat:
+     jdbc-url: jdbc:mysql://127.0.0.1:3306/testdb?useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+     username: root
+     password: root
+     driver-class-name: com.mysql.cj.jdbc.Driver
+    sit:
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/bd1804?useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
   http:
     encoding:
       charset: UTF-8
       force: false
-family:
-  family-name: "happy family"
-  father:
-    name: zimug
-    age: 18
-  mother:
-    alias:
-      - lovely
-      - ailice
-  child:
-    name: zimug
-    age: 5
-    friends:
-      - hobby: football
-        sex:  male
-      - hobby: basketball
-        sex: female
+
 
