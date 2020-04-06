@@ -1,4 +1,8 @@
 spring:
+  mvc:
+    view:
+      suffix: .jsp
+      prefix: /WEB-INF/jsp/
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -25,3 +29,8 @@ secondarydb:
   minPoolSize: 3
   maxPoolSize: 10
   testQuery: SELECT 1 from dual #由于采用HikiriCP，用于检测数据库连接是否存活。
+
+  spring:
+    data:
+      mongodb:
+        uri: mongodb://127.0.0.1:27017/testdb

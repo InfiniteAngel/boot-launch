@@ -36,7 +36,7 @@ public class ArticleRestServiceImpl implements ArticleRestService {
         student.setName("liuyifei");
         student.setGender("yifei");
         studentMapper.insert(student);
-        int a =4/0;
+       //                                                                                                                                                                                                                                                                                                                                                                                                                                                                 int a =4/0;
         return null;
     }
 

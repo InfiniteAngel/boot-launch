@@ -17,7 +17,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @JsonPropertyOrder(value={"content","title"})
-public class ArticleVO {
+public class
+ArticleVO {
     @JsonIgnore
     private Long id;
     private  String author;

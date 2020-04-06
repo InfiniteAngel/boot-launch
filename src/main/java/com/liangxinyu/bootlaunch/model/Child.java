@@ -10,3 +10,5 @@ public class Child {
     private List<Friend> friends;
 
 }
+
+
